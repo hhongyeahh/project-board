@@ -21,7 +21,7 @@ class ArticleControllerTest {
         this.mvc = mvc;
     }
 
-    @Disabled("구현 중")
+
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticlesView_thenReturnArticlesView() throws Exception {
@@ -31,7 +31,7 @@ class ArticleControllerTest {
         //when & then
         mvc.perform(get("/articles"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/index"))
                 .andExpect(model().attributeExists("articles"));
                 //서버에서 게시글 목록을 내려줌 -> view에 모델애트리부트로 데이터를 밀어넣어줬다는 뜻
