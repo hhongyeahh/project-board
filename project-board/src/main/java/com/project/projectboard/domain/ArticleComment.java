@@ -20,8 +20,8 @@ import java.util.Objects;
         @Index(columnList = "createdBy")
 })
 //@NoArgsConstructor(access = AccessLevel.PROTECTED) -> 애노테이션으로 기본 생성자 생성 가능
-@EntityListeners(AuditingEntityListener.class)//auditing 기능 동작하게 ㅎ함
-public class ArticleComment {
+//@EntityListeners(AuditingEntityListener.class)//auditing 기능 동작하게 함
+public class ArticleComment extends AuditingFields {//상속으로 AuditingFields와 연계시킴
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,18 +33,18 @@ public class ArticleComment {
     @Column(nullable = false,length = 500)
     private String content; // 본문
 
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt; // 생성일시
-    @CreatedBy
-    @Column(nullable = false)
-    private String createdBy; // 생성자
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt;  //수정일시
-    @LastModifiedBy
-    @Column(nullable = false)
-    private String modifiedBy; // 수정자
+//    @CreatedDate
+//    @Column(nullable = false)
+//    private LocalDateTime createdAt; // 생성일시
+//    @CreatedBy
+//    @Column(nullable = false)
+//    private String createdBy; // 생성자
+//    @LastModifiedDate
+//    @Column(nullable = false)
+//    private LocalDateTime modifiedAt;  //수정일시
+//    @LastModifiedBy
+//    @Column(nullable = false)
+//    private String modifiedBy; // 수정자
 
     protected ArticleComment() {
     }

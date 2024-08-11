@@ -24,9 +24,9 @@ import java.util.Set;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })//사이즈가 너무 큰 본문은 보통 인덱스를 걸지 않음 - ElasticSearch와 같은 검색엔신의 도움을 받음
-@EntityListeners(AuditingEntityListener.class)//auditing 기능 동작하게 ㅎ함
+//@EntityListeners(AuditingEntityListener.class)//auditing 기능 동작하게 함
 @Entity
-public class Article {
+public class Article extends AuditingFields {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
 
     @Setter @Column(nullable = false) // true가 기본
@@ -41,19 +41,19 @@ public class Article {
     //collection들어가서 articleComment 안으로 들어가서 또 toString을 보려고 하는데, articleComment안에 toString이 있어서 또 Article이 있어서 Article 보고 무한 반복
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();//이 Article에 연동되어있는 comment는 중복을 허용하지 않고 리스트로 모아서 보여주겠다.
 
-    //메타데이터 - 자동세팅기능 - JPA auditing
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt; // 생성일시
-    @CreatedBy
-    @Column(nullable = false, length = 100)
-    private String createdBy; // 생성자
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt;  //수정일시
-    @LastModifiedBy
-    @Column(nullable = false, length = 100)
-    private String modifiedBy; // 수정자
+//    //메타데이터 - 자동세팅기능 - JPA auditing
+//    @CreatedDate
+//    @Column(nullable = false)
+//    private LocalDateTime createdAt; // 생성일시
+//    @CreatedBy
+//    @Column(nullable = false, length = 100)
+//    private String createdBy; // 생성자
+//    @LastModifiedDate
+//    @Column(nullable = false)
+//    private LocalDateTime modifiedAt;  //수정일시
+//    @LastModifiedBy
+//    @Column(nullable = false, length = 100)
+//    private String modifiedBy; // 수정자
 
     protected Article() {
         //모든 hibernate 구현체를 사용하는 JPA entity는 기본생성자를 가지고 있어야함
