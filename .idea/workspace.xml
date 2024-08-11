@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6abaeb2c-102a-4017-a463-bc99a202e49b" name="변경" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/project-board">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/project-board">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="project-board" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="project-board" type="f1a62948:ProjectNode" />
+                <item name="실행 구성" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Record" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2knb9QXPEOt5mzKHAD3Ff6vJmCR" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.'com.project.projectboard.util'에 있는 테스트.executor": "Run",
+    "Gradle.'project-board.project-board.test'에 있는 테스트.executor": "Run",
+    "Gradle.'project-board.project-board.test~1'에 있는 테스트.executor": "Run",
+    "Gradle.ArticleCommentControllerTest.givenArticleCommentIdToDelete_whenRequesting_thenDeletesArticleComment.executor": "Run",
+    "Gradle.ArticleCommentControllerTest.givenArticleCommentInfo_whenRequesting_thenSavesNewArticleComment.executor": "Run",
+    "Gradle.ArticleCommentServiceTest.givenArticleCommentId_whenDeletingArticleComment_thenDeletesArticleComment.executor": "Run",
+    "Gradle.ArticleControllerTest (1).executor": "Run",
+    "Gradle.ArticleControllerTest.executor": "Run",
+    "Gradle.ArticleControllerTest.givenNewArticleInfo_whenRequesting_thenSavesNewArticle.executor": "Run",
+    "Gradle.ArticleControllerTest.givenNothing_whenRequestingArticleView_thenReturnsArticleView.executor": "Run",
+    "Gradle.ArticleServiceTest.executor": "Run",
+    "Gradle.ArticleServiceTest.givenArticleId_whenDeletingArticle_thenDeletesArticle.executor": "Run",
+    "Gradle.ArticleServiceTest.givenModifiedArticleInfo_whenUpdatingArticle_thenUpdatesArticle.executor": "Run",
+    "Gradle.FormDataEncoderTest.executor": "Run",
+    "Gradle.FormDataEncoderTest.givenObject_whenEncoding_thenReturnsFormEncodedString.executor": "Debug",
+    "Gradle.JpaRepositoryTest.executor": "Run",
+    "Gradle.project-board [build].executor": "Run",
+    "Gradle.project-board 빌드.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.ProjectBoardApplication.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "640ac83d",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/hyewon/Desktop/git/project-board/project-board",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ],
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
+      "MySQL"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/project-board" />
+      <recent name="$PROJECT_DIR$/project-board/src" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.project.projectboard.controller" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.ProjectBoardApplication">
+    <configuration name="ArticleCommentControllerTest.givenArticleCommentIdToDelete_whenRequesting_thenDeletesArticleComment" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/project-board" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.project.projectboard.controller.ArticleCommentControllerTest.givenArticleCommentIdToDelete_whenRequesting_thenDeletesArticleComment&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ArticleCommentControllerTest.givenArticleCommentInfo_whenRequesting_thenSavesNewArticleComment" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/project-board" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.project.projectboard.controller.ArticleCommentControllerTest.givenArticleCommentInfo_whenRequesting_thenSavesNewArticleComment&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ArticleCommentServiceTest.givenArticleCommentId_whenDeletingArticleComment_thenDeletesArticleComment" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/project-board" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.project.projectboard.service.ArticleCommentServiceTest.givenArticleCommentId_whenDeletingArticleComment_thenDeletesArticleComment&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ArticleServiceTest.givenArticleId_whenDeletingArticle_thenDeletesArticle" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/project-board" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.project.projectboard.service.ArticleServiceTest.givenArticleId_whenDeletingArticle_thenDeletesArticle&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="'project-board.project-board.test~1'에 있는 테스트" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/project-board" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ProjectBoardApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="project-board.project-board.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.projectboard.ProjectBoardApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.'project-board.project-board.test~1'에 있는 테스트" />
+        <item itemvalue="Gradle.ArticleCommentControllerTest.givenArticleCommentInfo_whenRequesting_thenSavesNewArticleComment" />
+        <item itemvalue="Gradle.ArticleCommentControllerTest.givenArticleCommentIdToDelete_whenRequesting_thenDeletesArticleComment" />
+        <item itemvalue="Gradle.ArticleCommentServiceTest.givenArticleCommentId_whenDeletingArticleComment_thenDeletesArticleComment" />
+        <item itemvalue="Gradle.ArticleServiceTest.givenArticleId_whenDeletingArticle_thenDeletesArticle" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-liberica-17.0.10-4caba194b151-2cc8b805" />
+        <option value="jdk-21.0.2-liberica-full-21.0.2-4caba194b151-805e3ec3" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="6abaeb2c-102a-4017-a463-bc99a202e49b" name="변경" comment="" />
+      <created>1723922136350</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1723922136350</updated>
+      <workItem from="1723922137520" duration="8797000" />
+      <workItem from="1723932223608" duration="62000" />
+      <workItem from="1723932288802" duration="1672000" />
+      <workItem from="1723933976456" duration="2225000" />
+      <workItem from="1723936661854" duration="426000" />
+      <workItem from="1723937385070" duration="1198000" />
+      <workItem from="1723980988821" duration="1286000" />
+      <workItem from="1723982747705" duration="78000" />
+      <workItem from="1723982829337" duration="3710000" />
+      <workItem from="1723987079220" duration="942000" />
+      <workItem from="1724089502920" duration="49000" />
+      <workItem from="1724318999745" duration="1118000" />
+      <workItem from="1724657563350" duration="9993000" />
+      <workItem from="1724674850439" duration="7000" />
+      <workItem from="1724675103054" duration="539000" />
+      <workItem from="1724675917622" duration="822000" />
+      <workItem from="1725412318290" duration="468000" />
+      <workItem from="1725435148209" duration="3286000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
