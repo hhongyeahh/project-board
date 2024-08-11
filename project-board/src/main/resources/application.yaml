@@ -18,6 +18,9 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    driver-class-name: org.h2.Driver
   jpa:
     defer-datasource-initialization: true
     hibernate:
@@ -28,18 +31,9 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 100
-  h2:
-    console:
-      enabled: false
----
-spring:
-  config:
-    activate:
-      on-profile: testdb
-  datasource:
-    url: jdbc:h2:mem:board;mode=mysql # h2 DB의 compatibility
-    driverClassName: org.h2.Driver
+#  h2:
+#    console:
+#      enabled: true
   sql:
     init:
       mode: always
-  test.database.replace: none
