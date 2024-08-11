@@ -48,6 +48,8 @@ dependencies {
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
     //뷰 dependencies 추가
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    //사용자 커스텀 properties 도 문세세팅 가능 + IDE 지원
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
 
 tasks.named('test') {
