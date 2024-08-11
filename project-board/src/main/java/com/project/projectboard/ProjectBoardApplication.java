@@ -2,7 +2,10 @@ package com.project.projectboard;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
+@ConfigurationPropertiesScan
 @SpringBootApplication
 public class ProjectBoardApplication {
 
