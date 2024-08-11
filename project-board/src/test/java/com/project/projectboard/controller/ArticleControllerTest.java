@@ -38,7 +38,7 @@ class ArticleControllerTest {
                 //모델 애트리뷰트라는 맵에 해당 이름(articles)의 키가 있는지 체크 (내용 까지 검증하는 것은 아님)
 
     }
-    @Disabled("구현 중")
+ 
     @DisplayName("[view][GET] 게시글 단건(상세) 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticleView_thenReturnArticleView() throws Exception {
