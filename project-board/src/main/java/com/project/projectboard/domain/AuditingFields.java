@@ -15,9 +15,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 @Getter
 @ToString
-@EntityListeners(AuditingEntityListener.class)//auditing 기능 동작하게 ㅎ함
+@EntityListeners(AuditingEntityListener.class)//auditing 기능 동작하게 함
 @MappedSuperclass
-public class AuditingFields {
+public abstract class AuditingFields { //별개의 엔티티가 아닌 다른 엔티티 클래스에 공통으로 들어갈 것이니 추상클래스로 설정해 준다.
 
     //메타데이터 - 자동세팅기능 - JPA auditing
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)//Web화면에서 파라미터를 받아서 세팅할 때 파싱에 대한 룰을 넣어줘야함

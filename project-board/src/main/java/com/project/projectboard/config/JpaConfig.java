@@ -10,7 +10,6 @@ import java.util.Optional;
 @EnableJpaAuditing
 @Configuration
 public class JpaConfig {
-
     @Bean
     public AuditorAware<String> auditorAware(){ // auditing에서 이름을 넣는 방법
         return () -> Optional.of("username"); //TODO: 스프링 시큐리티로 인증 기능을 붙이게 될때, 수정하자
