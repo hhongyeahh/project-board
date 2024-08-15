@@ -8,7 +8,7 @@ import lombok.ToString;
 import java.util.Objects;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Table( indexes = {
         @Index(columnList = "email", unique = true),
         @Index(columnList = "createdAt"),
@@ -17,8 +17,7 @@ import java.util.Objects;
 @Entity
 public class UserAccount extends AuditingFields{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(length = 50) private String userId;
 
     @Setter @Column(nullable = false) private String userPassword;
 
@@ -30,27 +29,30 @@ public class UserAccount extends AuditingFields{
 
     }
 
-    private UserAccount(Long id,String userPassword, String email, String nickname, String memo){
-        this.id = id;
-        this.userPassword =userPassword;
+    private UserAccount(String userId, String userPassword, String email, String nickname, String memo, String createdBy) {
+        this.userId = userId;
+        this.userPassword = userPassword;
         this.email = email;
         this.nickname = nickname;
         this.memo = memo;
     }
+    public static UserAccount of(String userId, String userPassword, String email, String nickname, String memo) {
+        return UserAccount.of(userId, userPassword, email, nickname, memo, null);
+    }
 
-    public static UserAccount of(Long id,String userPassword, String email, String nickname, String memo){
-       return UserAccount.of(id, userPassword, email, nickname, memo);
+    public static UserAccount of(String userId, String userPassword, String email, String nickname, String memo, String createdBy) {
+        return new UserAccount(userId, userPassword, email, nickname, memo, createdBy);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserAccount userAccount)) return false;
-        return id != null && id.equals(userAccount.id);
+        return userId != null && userId.equals(userAccount.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(userId);
     }
 }
