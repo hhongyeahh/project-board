@@ -147,23 +147,23 @@ import static org.mockito.BDDMockito.*;
                     createUserAccountDto(),
                     content,
                     LocalDateTime.now(),
-                    "uno",
+                    "User1",
                     LocalDateTime.now(),
-                    "uno"
+                    "User1"
             );
         }
 
         private UserAccountDtoV1 createUserAccountDto() {
             return UserAccountDtoV1.of(
-                    "uno",
+                    "User1",
                     "password",
-                    "uno@mail.com",
-                    "Uno",
+                    "User1@mail.com",
+                    "User1",
                     "This is memo",
                     LocalDateTime.now(),
-                    "uno",
+                    "User1",
                     LocalDateTime.now(),
-                    "uno"
+                    "User1"
             );
         }
 
@@ -180,10 +180,10 @@ import static org.mockito.BDDMockito.*;
 
         private UserAccount createUserAccount() {
             return UserAccount.of(
-                    "uno",
+                    "User1",
                     "password",
-                    "uno@email.com",
-                    "Uno",
+                    "User1@email.com",
+                    "User1",
                     null
             );
         }
