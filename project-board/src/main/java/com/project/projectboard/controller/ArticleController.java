@@ -4,7 +4,9 @@ import com.project.projectboard.domain.type.SearchType;
 import com.project.projectboard.dto.v1.response.ArticleResponseV1;
 import com.project.projectboard.dto.v1.response.ArticleWithCommentsResponseV1;
 import com.project.projectboard.service.ArticleServiceV1;
+import com.project.projectboard.service.PaginationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -29,6 +31,7 @@ public class ArticleController {
      */
 
     private final ArticleServiceV1 articleService;
+    private final PaginationService paginationService;
 
 
     @GetMapping//게시글 리스트 페이지 - 정상 호출
@@ -38,7 +41,12 @@ public class ArticleController {
             @PageableDefault(size=10, sort = "createdAt",direction = Sort.Direction.DESC) Pageable pageable,
             ModelMap map
     ){
-        map.addAttribute("articles", articleService.searchArticles(searchType,searchValue, pageable).map(ArticleResponseV1::from));
+        //        map.addAttribute("articles", articleService.searchArticles(searchType,searchValue, pageable).map(ArticleResponseV1::from));
+        //페이지네이션 추가 수정
+        Page<ArticleResponseV1> articles = articleService.searchArticles(searchType,searchValue, pageable).map(ArticleResponseV1::from);
+        List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(),articles.getTotalPages());
+        map.addAttribute("articles",articles);
+        map.addAttribute("paginationBarNumbers",barNumbers);
         return "articles/index";
     }
 
