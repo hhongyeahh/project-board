@@ -5,53 +5,85 @@
 
 
     <attr sel="main" th:object="${articles}">
-    <attr sel="#article-table">
-        <attr sel="thead/tr">
-            <attr sel="th.title/a" th:text="'제목'" th:href="@{/articles(
-            page=${articles.number},
-            sort='title' + (*{sort.getOrderFor('title')} != null ? (*{sort.getOrderFor('title').direction.name} != 'DESC' ? ',desc' : '') : '')
-        )}"/>
-            <attr sel="th.hashtag/a" th:text="'해시태그'" th:href="@{/articles(
-            page=${articles.number},
-            sort='hashtag' + (*{sort.getOrderFor('hashtag')} != null ? (*{sort.getOrderFor('hashtag').direction.name} != 'DESC' ? ',desc' : '') : '')
-        )}"/>
-            <attr sel="th.user-id/a" th:text="'작성자'" th:href="@{/articles(
-            page=${articles.number},
-            sort='userAccount.userId' + (*{sort.getOrderFor('userAccount.userId')} != null ? (*{sort.getOrderFor('userAccount.userId').direction.name} != 'DESC' ? ',desc' : '') : '')
-        )}"/>
-            <attr sel="th.created-at/a" th:text="'작성일'" th:href="@{/articles(
-            page=${articles.number},
-            sort='createdAt' + (*{sort.getOrderFor('createdAt')} != null ? (*{sort.getOrderFor('createdAt').direction.name} != 'DESC' ? ',desc' : '') : '')
-        )}"/>
+<!--        search-type-->
+        <attr sel="#search-type" th:remove="all-but-first">
+            <attr sel="option[0]"
+                  th:each="searchType : ${searchTypes}"
+                  th:value="${searchType.name}"
+                  th:text="${searchType.description}"
+                  th:selected="${param.searchType != null && (param.searchType.toString == searchType.name)}"
+            />
+                            <!--param : 현재 GetParameter 에서 searchType 을 꺼내온 것
+                            직전 검색 했던 내용은 url Parameter 에 남아있을 것임
+                            지금 option dropdown 메뉴의 이름과 같은지 확인 후 true false 넣어주겠다는 뜻
+                            즉, 계속 같은 searchType 으로 연속으로 검색하고 싶은 사람을 배려해서 다음 검색 결과에 반영될 수 있도록
+                            직전 검색 항목만 true 가 되어있어서 화면에 표현할 수 있음
+                            paramMap 에서 꺼낸 searchType 은 enum 이 보장되지 않기 때문에, name 으로 호출 불가해서 toString 으로 호출-->
         </attr>
-        <attr sel="tbody" th:remove="all-but-first"> <!-- tbody의 첫번째만 남기고 전부 지운다 -->
-            <attr sel="tr[0]" th:each="article : ${articles}"> <!-- tr의 0번째부터 순회하며 아래 요소에 대한 작업 진행-->
-                <attr sel="td.title/a" th:text="${article.title}" th:href="@{'/articles/' + ${article.id}}" /> <!-- a 부분에 다음과 같은 양식으로 하이퍼링크 작성-->
-                <attr sel="td.hashtag" th:text="${article.hashtag}" />
-                <attr sel="td.user-id" th:text="${article.nickname}" />
-                <attr sel="td.created-at/time" th:datetime="${article.createdAt}" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd')}" />
+<!--        search-value-->
+        <attr sel="#search-value" th:value="${param.searchValue}" />
+                            <!--직전에 검색했던 검색어를 유지하기 위해서-->
+
+
+<!--        article-table-->
+        <attr sel="#article-table">
+            <attr sel="thead/tr">
+                <attr sel="th.title/a" th:text="'제목'" th:href="@{/articles(
+            page=${articles.number},
+            sort='title' + (*{sort.getOrderFor('title')} != null ? (*{sort.getOrderFor('title').direction.name} != 'DESC' ? ',desc' : '') : ''),
+            searchType=${param.searchType},
+            searchValue=${param.searchValue}
+        )}"/>
+                <attr sel="th.hashtag/a" th:text="'해시태그'" th:href="@{/articles(
+            page=${articles.number},
+            sort='hashtag' + (*{sort.getOrderFor('hashtag')} != null ? (*{sort.getOrderFor('hashtag').direction.name} != 'DESC' ? ',desc' : '') : ''),
+            searchType=${param.searchType},
+            searchValue=${param.searchValue}
+        )}"/>
+                <attr sel="th.user-id/a" th:text="'작성자'" th:href="@{/articles(
+            page=${articles.number},
+            sort='userAccount.userId' + (*{sort.getOrderFor('userAccount.userId')} != null ? (*{sort.getOrderFor('userAccount.userId').direction.name} != 'DESC' ? ',desc' : '') : ''),
+            searchType=${param.searchType},
+            searchValue=${param.searchValue}
+        )}"/>
+                <attr sel="th.created-at/a" th:text="'작성일'" th:href="@{/articles(
+            page=${articles.number},
+            sort='createdAt' + (*{sort.getOrderFor('createdAt')} != null ? (*{sort.getOrderFor('createdAt').direction.name} != 'DESC' ? ',desc' : '') : ''),
+            searchType=${param.searchType},
+            searchValue=${param.searchValue}
+        )}"/>
+            </attr>
+
+
+            <attr sel="tbody" th:remove="all-but-first"> <!-- tbody의 첫번째만 남기고 전부 지운다 -->
+                <attr sel="tr[0]" th:each="article : ${articles}"> <!-- tr의 0번째부터 순회하며 아래 요소에 대한 작업 진행-->
+                    <attr sel="td.title/a" th:text="${article.title}" th:href="@{'/articles/' + ${article.id}}" /> <!-- a 부분에 다음과 같은 양식으로 하이퍼링크 작성-->
+                    <attr sel="td.hashtag" th:text="${article.hashtag}" />
+                    <attr sel="td.user-id" th:text="${article.nickname}" />
+                    <attr sel="td.created-at/time" th:datetime="${article.createdAt}" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd')}" />
+                </attr>
             </attr>
         </attr>
-    </attr>
 
-    <attr sel="#pagination">
-        <attr sel="li[0]/a"
-              th:text="'previous'"
-              th:href="@{/articles(page=${articles.number - 1})}"
-              th:class="'page-link' + (${articles.number} <= 0 ? ' disabled' : '')"
-        />
-        <attr sel="li[1]" th:class="page-item" th:each="pageNumber : ${paginationBarNumbers}">
-            <attr sel="a"
-                  th:text="${pageNumber + 1}"
-                  th:href="@{/articles(page=${pageNumber})}"
-                  th:class="'page-link' + (${pageNumber} == ${articles.number} ? ' disabled' : '')"
+<!--        페이지네이션-->
+        <attr sel="#pagination">
+            <attr sel="li[0]/a"
+                  th:text="'previous'"
+                  th:href="@{/articles(page=${articles.number - 1},searchType=${param.searchType}, searchValue=${param.searchValue})}"
+                  th:class="'page-link' + (${articles.number} <= 0 ? ' disabled' : '')"
+            />
+            <attr sel="li[1]" th:class="page-item" th:each="pageNumber : ${paginationBarNumbers}">
+                <attr sel="a"
+                      th:text="${pageNumber+1}"
+                      th:href="@{/articles(page=${pageNumber},searchType=${param.searchType}, searchValue=${param.searchValue})}"
+                      th:class="'page-link' + (${pageNumber} == ${articles.number} ? ' disabled' : '')"
+                />
+            </attr>
+            <attr sel="li[2]/a"
+                  th:text="'next'"
+                  th:href="@{/articles(page=${articles.number + 1},searchType=${param.searchType}, searchValue=${param.searchValue})}"
+                  th:class="'page-link' + (${articles.number} >= ${articles.totalPages - 1} ? ' disabled' : '')"
             />
         </attr>
-        <attr sel="li[2]/a"
-              th:text="'next'"
-              th:href="@{/articles(page=${articles.number + 1})}"
-              th:class="'page-link' + (${articles.number} >= ${articles.totalPages - 1} ? ' disabled' : '')"
-        />
-    </attr>
     </attr>
 </thlogic>
