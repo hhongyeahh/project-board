@@ -1,13 +1,13 @@
-package com.project.projectboard.dto.v1.response;
+package com.project.projectboard.dto.response;
 
-import com.project.projectboard.dto.v1.ArticleWithCommentsDtoV1;
+import com.project.projectboard.dto.ArticleWithCommentsDto;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public record ArticleWithCommentsResponseV1(
+public record ArticleWithCommentsResponse(
         Long id,
         String title,
         String content,
@@ -15,21 +15,21 @@ public record ArticleWithCommentsResponseV1(
         LocalDateTime createdAt,
         String email,
         String nickname,
-        Set<ArticleCommentResponseV1> articleCommentsResponse
+        Set<ArticleCommentResponse> articleCommentsResponse
 ) {
 
-    public static ArticleWithCommentsResponseV1 of(Long id, String title, String content, String hashtag, LocalDateTime createdAt, String email, String nickname,  Set<ArticleCommentResponseV1> articleCommentsResponse) {
-        return new ArticleWithCommentsResponseV1(id, title, content, hashtag, createdAt, email, nickname, articleCommentsResponse);
+    public static ArticleWithCommentsResponse of(Long id, String title, String content, String hashtag, LocalDateTime createdAt, String email, String nickname, Set<ArticleCommentResponse> articleCommentsResponse) {
+        return new ArticleWithCommentsResponse(id, title, content, hashtag, createdAt, email, nickname, articleCommentsResponse);
 
     }
 
-    public static ArticleWithCommentsResponseV1 from(ArticleWithCommentsDtoV1 dto) {
+    public static ArticleWithCommentsResponse from(ArticleWithCommentsDto dto) {
         String nickname = dto.userAccountDto().nickname();
         if (nickname == null || nickname.isBlank()) {
             nickname = dto.userAccountDto().userId();
         }
 
-        return new ArticleWithCommentsResponseV1(
+        return new ArticleWithCommentsResponse(
                 dto.id(),
                 dto.title(),
                 dto.content(),
@@ -38,7 +38,7 @@ public record ArticleWithCommentsResponseV1(
                 dto.userAccountDto().email(),
                 nickname,
                 dto.articleCommentDtos().stream()
-                .map(ArticleCommentResponseV1::from)
+                .map(ArticleCommentResponse::from)
                 .collect(Collectors.toCollection(LinkedHashSet::new))
         );
     }
