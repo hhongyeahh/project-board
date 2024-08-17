@@ -55,6 +55,7 @@ dependencies {
     // 로그인 페이지를 위한 스프링 세큐리티 추가
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 tasks.named('test') {
