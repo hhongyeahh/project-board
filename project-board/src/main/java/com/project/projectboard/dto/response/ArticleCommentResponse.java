@@ -1,10 +1,10 @@
-package com.project.projectboard.dto.v1.response;
+package com.project.projectboard.dto.response;
 
-import com.project.projectboard.dto.v1.ArticleCommentDtoV1;
+import com.project.projectboard.dto.ArticleCommentDto;
 
 import java.time.LocalDateTime;
 
-public record ArticleCommentResponseV1(
+public record ArticleCommentResponse(
         Long id,
         String content,
         LocalDateTime createdAt,
@@ -12,18 +12,18 @@ public record ArticleCommentResponseV1(
         String nickname
 ) {
 
-    public static ArticleCommentResponseV1 of(Long id, String content, LocalDateTime createdAt, String email, String nickname) {
-        return new ArticleCommentResponseV1(id, content, createdAt, email, nickname);
+    public static ArticleCommentResponse of(Long id, String content, LocalDateTime createdAt, String email, String nickname) {
+        return new ArticleCommentResponse(id, content, createdAt, email, nickname);
     }
 
 
-    public static ArticleCommentResponseV1 from(ArticleCommentDtoV1 dto) {
+    public static ArticleCommentResponse from(ArticleCommentDto dto) {
         String nickname = dto.userAccountDto().nickname();
         if (nickname == null || nickname.isBlank()) {
             nickname = dto.userAccountDto().userId();
         }
 
-        return ArticleCommentResponseV1.of(
+        return ArticleCommentResponse.of(
                 dto.id(),
                 dto.content(),
                 dto.createdAt(),

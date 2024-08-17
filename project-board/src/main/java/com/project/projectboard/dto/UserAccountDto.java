@@ -1,10 +1,10 @@
-package com.project.projectboard.dto.v2;
+package com.project.projectboard.dto;
 
 import com.project.projectboard.domain.UserAccount;
 
 import java.time.LocalDateTime;
 
-public record UserAccountDtoV2(
+public record UserAccountDto(
         String userId,
         String userPassword,
         String email,
@@ -16,13 +16,15 @@ public record UserAccountDtoV2(
         String modifiedBy
 ) {
 
-
-    public static UserAccountDtoV2 of(String userId, String userPassword, String email, String nickname, String memo, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
-        return new UserAccountDtoV2(userId, userPassword, email, nickname, memo, createdAt, createdBy, modifiedAt, modifiedBy);
+    public static UserAccountDto of(String userId, String userPassword, String email, String nickname, String memo) {
+        return new UserAccountDto(userId, userPassword, email, nickname, memo, null, null, null, null);
+    }
+    public static UserAccountDto of(String userId, String userPassword, String email, String nickname, String memo, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
+        return new UserAccountDto(userId, userPassword, email, nickname, memo, createdAt, createdBy, modifiedAt, modifiedBy);
     }
 
-    public static UserAccountDtoV2 from(UserAccount entity) {
-        return new UserAccountDtoV2(
+    public static UserAccountDto from(UserAccount entity) {
+        return new UserAccountDto(
                 entity.getUserId(),
                 entity.getUserPassword(),
                 entity.getEmail(),

@@ -14,39 +14,34 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-//CRUD test
-@ActiveProfiles("testdb")//내가지정한 inmemorydb를 사용하겠다.
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)//길어서 프로퍼티스에 전역설정함
-@DisplayName("JPA 연결 테스트")//클래스 레벨로 Junit5기능을 활용하여 테스트 네임을 하나 넣어줌
-@DataJpaTest // sliceTest할거라 DataJpaTest의 도움을 받음 -> 메서드 단위로 트랜젝션 걸려있음 Rollback으로 작동
-    //그냥 이렇게 하면 Test는 JpaConfig의 존재를 모르기 때문에(내가 만든거니 그래서 import로 추가)
-    //이걸 하지 않으면 Jpaconfig에서 넣어준 auditing기능이 동작하지 않음
-@Import(JpaConfig.class)
-//@ExtendWith()//autowired 기능에 대한 로직들이 들어가 있음 -> 생성자 주입 패턴으로 필드를 만들 수 있음
+@DisplayName("JPA 연결 테스트")
+@Import(JpaConfig.class) // 아래의 어노테이션이 인식을 못하므로 수동 Import
+@DataJpaTest
 class JpaRepositoryTest {
+
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
+    // 추가된 사항
     private final UserAccountRepository userAccountRepository;
 
-    JpaRepositoryTest(@Autowired ArticleRepository articleRepository,
-                      @Autowired ArticleCommentRepository articleCommentRepository,
-                      @Autowired UserAccountRepository userAccountRepository) {
+    public JpaRepositoryTest(@Autowired ArticleRepository articleRepository,
+                             @Autowired ArticleCommentRepository articleCommentRepository,
+                             @Autowired UserAccountRepository userAccountRepository
+    ) {
         this.articleRepository = articleRepository;
         this.articleCommentRepository = articleCommentRepository;
-        this.userAccountRepository =userAccountRepository;
+        this.userAccountRepository = userAccountRepository;
     }
 
     @DisplayName("select 테스트")
     @Test
-    public void givenTestData_whenSelecting_thenWorksFine() throws Exception {
+    void givenTestData_whenSelecting_thenWorksFine() {
+        // Given
 
-        //given
-
-        //when
+        // When
         List<Article> articles = articleRepository.findAll();
 
-        //then
+        // Then
         assertThat(articles)
                 .isNotNull()
                 .hasSize(123);
@@ -55,54 +50,60 @@ class JpaRepositoryTest {
 
     @DisplayName("insert 테스트")
     @Test
-    public void givenTestData_whenInserting_thenWorksFine() throws Exception {
+    void givenTestData_whenInserting_thenWorksFine() {
+        // Given
+        long previousCount = articleRepository.count(); // 현재 repository의 aritcle 개수 카운트
+        // 추가됨
+        UserAccount userAccount = userAccountRepository.save(UserAccount.of("mrcocoball", "pw", null, null, null));
+        Article article = Article.of(userAccount, "new article", "new content", "#spring");
 
-        //given
-        long previousCount = articleRepository.count();
-        UserAccount userAccount = userAccountRepository.save(UserAccount.of("newUserId","password",null,null,null));
-        Article article = Article.of(userAccount,"new article","new content","#newHashtag");
-        //when
+        // When
+        // Article savedArticle = articleRepository.save(Article.of("new article", "new content", "#spring"));
         articleRepository.save(article);
-        //then
-        assertThat(articleRepository.count()).isEqualTo(previousCount+1);
+        // repository에 새 article 추가
+
+        // Then
+        assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
 
     }
 
     @DisplayName("update 테스트")
     @Test
-    public void givenTestData_whenUpdating_thenWorksFine() throws Exception {
-
-        //given
+    void givenTestData_whenUpdating_thenWorksFine() {
+        // Given
         Article article = articleRepository.findById(1L).orElseThrow();
-        String updateHashtag = "#springboot";
-        article.setHashtag(updateHashtag);
+        // 현재 repository 내부에서 id가 1l인 article 불러오기, 없으면 exception throw
+        String updatedHashTag = "#springboot";
+        // 업데이트할 해시태그
+        article.setHashtag(updatedHashTag);
+        // 해시태그 수정
 
-        //when
-        Article savedArticle = articleRepository.save(article);
+        // When
+        Article savedArticle = articleRepository.saveAndFlush(article);
+        // save로만 할 경우 update 쿼리가 관측이 안됨
 
-        //then
-        assertThat(savedArticle).hasFieldOrPropertyWithValue("hashtag",updateHashtag);
+        // Then
+        assertThat(savedArticle).hasFieldOrPropertyWithValue("hashtag", updatedHashTag);
 
     }
 
     @DisplayName("delete 테스트")
     @Test
-    public void givenTestData_whenDeleting_thenWorksFine() throws Exception {
-
-        //given
+    void givenTestData_whenDeleting_thenWorksFine() {
+        // Given
         Article article = articleRepository.findById(1L).orElseThrow();
+        // 현재 repository 내부에서 id가 1l인 article 불러오기, 없으면 exception throw
         long previousArticleCount = articleRepository.count();
         long previousArticleCommentCount = articleCommentRepository.count();
-        int deletedCommentsSize = article.getArticleComments().size(); //양방향 바인딩으로 인해 가져올 수 있음
+        // 연관관계가 지정되어 있어 article 삭제 시 articlecomment도 같이 지워지므로 둘 다 개수 카운트
+        int deletedCommentsSize = article.getArticleComments().size();
 
-        //when
+        // When
         articleRepository.delete(article);
 
-        //then
-        assertThat(articleRepository.count()).isEqualTo(previousArticleCount-1);
-        assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount-deletedCommentsSize);
-
-
+        // Then
+        assertThat(articleRepository.count()).isEqualTo(previousArticleCount - 1);
+        assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentsSize);
 
     }
 }
