@@ -1,6 +1,7 @@
 package com.project.projectboard.controller;
 
 import com.project.projectboard.config.SecurityConfig;
+import com.project.projectboard.domain.type.SearchType;
 import com.project.projectboard.dto.v1.ArticleWithCommentsDtoV1;
 import com.project.projectboard.dto.v1.UserAccountDtoV1;
 import com.project.projectboard.service.ArticleServiceV1;
@@ -52,7 +53,7 @@ public class ArticleControllerTest {
         //given
         //검색어 없는 경우
         given(articleService.searchArticles(eq(null), eq(null), any(Pageable.class))).willReturn(Page.empty());
-        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of()); // 페이지네이션
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of(0,1,2,3,4)); // 페이지네이션
 
         //when & then
         mvc.perform(get("/articles"))
@@ -65,6 +66,31 @@ public class ArticleControllerTest {
         then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
         //서버에서 게시글 목록을 내려줌 -> view에 모델애트리부트로 데이터를 밀어넣어줬다는 뜻
         //모델 애트리뷰트라는 맵에 해당 이름(articles)의 키가 있는지 체크 (내용 까지 검증하는 것은 아님)
+    }
+
+    @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 감색어와 함께 호출")
+    @Test
+    public void givenSearchingKeyword_whenSearchingArticleView_thenReturnArticleView() throws Exception {
+
+        //given
+        SearchType searchType = SearchType.TITLE;
+        String searchValue = "title";
+        given(articleService.searchArticles(eq(searchType), eq(searchValue), any(Pageable.class))).willReturn(Page.empty());
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of()); // 페이지네이션
+
+        //when & then
+        mvc.perform(get("/articles")
+                        .queryParam("searchType",searchType.name())
+                        .queryParam("searchValue",searchValue)
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/index"))
+                .andExpect(model().attributeExists("articles"))
+                .andExpect(model().attributeExists("searchTypes"));
+        then(articleService).should().searchArticles(eq(searchType), eq(searchValue), any(Pageable.class));
+        then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
+
     }
     @DisplayName("[view][GET] 게시글 단건(상세) 페이지 - 정상 호출")
     @Test
@@ -84,6 +110,7 @@ public class ArticleControllerTest {
         then(articleService).should().getArticle(articleId);
 
     }
+
 
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 페이징, 정렬 기능")
     @Test
