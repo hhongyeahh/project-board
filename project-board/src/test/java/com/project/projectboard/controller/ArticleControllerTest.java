@@ -213,7 +213,7 @@ public class ArticleControllerTest {
     private ArticleWithCommentsDto createArticleWithCommentsDtoV1() {
         return ArticleWithCommentsDto.of(
                 1L,
-                createUserAccountDtoV1(),
+                createUserAccountDto(),
                 Set.of(),
                 "title",
                 "content",
@@ -225,8 +225,8 @@ public class ArticleControllerTest {
         );
     }
 
-    private UserAccountDto createUserAccountDtoV1() {
-        return new UserAccountDto(
+    private UserAccountDto createUserAccountDto() {
+        return UserAccountDto.of(
                 "user1",
                 "pw",
                 "user1@mail.com",

@@ -28,9 +28,9 @@ import java.util.Set;
 public class Article extends AuditingFields {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
 
-    @Setter
+    @Setter @ManyToOne(optional = false)
     @JoinColumn(name="user_id")
-    @ManyToOne(optional = false) private UserAccount userAccount;
+    private UserAccount userAccount;
 
     @Setter @Column(nullable = false) private String title; // 제목
     @Setter @Column(nullable = false, length = 10000) private String content; // 본문

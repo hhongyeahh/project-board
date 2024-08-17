@@ -91,6 +91,7 @@ public class ArticleComment extends AuditingFields {//상속으로 AuditingField
     @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
 
     @Setter @ManyToOne(optional = false) private Article article;
+
     @Setter @JoinColumn(name="user_id")
     @ManyToOne(optional = false)
     private UserAccount userAccount;
