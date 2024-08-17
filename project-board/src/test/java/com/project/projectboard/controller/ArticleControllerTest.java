@@ -1,10 +1,10 @@
 package com.project.projectboard.controller;
 
 import com.project.projectboard.config.SecurityConfig;
-import com.project.projectboard.domain.type.SearchType;
-import com.project.projectboard.dto.v1.ArticleWithCommentsDtoV1;
-import com.project.projectboard.dto.v1.UserAccountDtoV1;
-import com.project.projectboard.service.ArticleServiceV1;
+import com.project.projectboard.domain.constant.SearchType;
+import com.project.projectboard.dto.ArticleWithCommentsDto;
+import com.project.projectboard.dto.UserAccountDto;
+import com.project.projectboard.service.ArticleService;
 import com.project.projectboard.service.PaginationService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -37,14 +37,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ArticleControllerTest {
     private final MockMvc mvc;
     @MockBean
-    private ArticleServiceV1 articleService;//MockBean 에 대해서 생성자 주입이 구현되어있지 않아서, 필드 주입만 가능
+    private ArticleService articleService;//MockBean 에 대해서 생성자 주입이 구현되어있지 않아서, 필드 주입만 가능
     @MockBean
     private PaginationService paginationService;
 
     public ArticleControllerTest(@Autowired MockMvc mvc) {//실제 소스코드에는 @Autowired 생략가능하지만, Test에서는 불가
         this.mvc = mvc;
     }
-
 
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 정상 호출")
     @Test
@@ -98,7 +97,7 @@ public class ArticleControllerTest {
 
         //given
         Long articleId = 1L;
-        given(articleService.getArticle(articleId)).willReturn(createArticleWithCommentsDtoV1());
+        given(articleService.getArticleWithComments(articleId)).willReturn(createArticleWithCommentsDtoV1());
 
         //when & then
         mvc.perform(get("/articles/"+articleId))
@@ -107,7 +106,7 @@ public class ArticleControllerTest {
                 .andExpect(view().name("articles/detail"))
                 .andExpect(model().attributeExists("article"))
                 .andExpect(model().attributeExists("articleComments"));
-        then(articleService).should().getArticle(articleId);
+        then(articleService).should().getArticleWithComments(articleId);
 
     }
 
@@ -141,7 +140,6 @@ public class ArticleControllerTest {
         then(articleService).should().searchArticles(null,null,pageable);
         then(paginationService).should().getPaginationBarNumbers(pageable.getPageNumber(),Page.empty().getTotalPages());
     }
-
     @Disabled("구현 중")
     @DisplayName("[view][GET] 게시글 검색 전용 페이지 - 정상 호출")
     @Test
@@ -158,22 +156,62 @@ public class ArticleControllerTest {
 
     }
 
-    @Disabled("구현 중")
     @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출")
     @Test
-    public void givenNothing_whenRequestingArticleHashtagSearchView_thenReturnArticleHashtagSearchView() throws Exception {
+    public void givenNothing_whenRequestingArticleSearchHashtagView_thenReturnArticleSearchHashtagView() throws Exception {
 
         //given
+        List<String> hashtags = List.of("#java","#Spring","#Boot");
+        given(articleService.searchArticlesViaHashtag(eq(null),any(Pageable.class))).willReturn(Page.empty());
+        given(articleService.getHashtags()).willReturn(hashtags);
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of(1,2,3,4,5));
 
         //when & then
         mvc.perform(get("/articles/search-hashtag"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(model().attributeExists("articles/search-hashtag"));
+                .andExpect(view().name("articles/search-hashtag"))
+                .andExpect(model().attribute("articles",Page.empty()))
+                .andExpect(model().attribute("hashtags",hashtags))
+                .andExpect(model().attributeExists("paginationBarNumbers"))
+                .andExpect(model().attribute("searchType",SearchType.HASHTAG))
+                ;
+        then(articleService).should().searchArticlesViaHashtag(eq(null),any(Pageable.class));
+        then(articleService).should().getHashtags();
+        then(paginationService).should().getPaginationBarNumbers(anyInt(),anyInt());
     }
 
-    private ArticleWithCommentsDtoV1 createArticleWithCommentsDtoV1() {
-        return ArticleWithCommentsDtoV1.of(
+    @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출, 해시태그 입력")
+    @Test
+    public void givenHashtag_whenRequestingArticleSearchHashtagView_thenReturnArticleSearchHashtagView() throws Exception {
+        //given
+        String hashtag = "#java";
+        List<String> hashtags = List.of("#java","#Spring","#Boot");
+
+        given(articleService.searchArticlesViaHashtag(eq(hashtag),any(Pageable.class))).willReturn(Page.empty());
+        given(articleService.getHashtags()).willReturn(hashtags);
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of(1,2,3,4,5));
+
+        //when & then
+        mvc.perform(get("/articles/search-hashtag")
+                        .queryParam("searchValue",hashtag)
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/search-hashtag"))
+                .andExpect(model().attribute("articles",Page.empty()))
+                .andExpect(model().attribute("hashtags",hashtags))
+                .andExpect(model().attributeExists("paginationBarNumbers"))
+                .andExpect(model().attribute("searchType",SearchType.HASHTAG))
+
+        ;
+        then(articleService).should().searchArticlesViaHashtag(eq(hashtag),any(Pageable.class));
+        then(articleService).should().getHashtags();
+        then(paginationService).should().getPaginationBarNumbers(anyInt(),anyInt());
+    }
+
+    private ArticleWithCommentsDto createArticleWithCommentsDtoV1() {
+        return ArticleWithCommentsDto.of(
                 1L,
                 createUserAccountDtoV1(),
                 Set.of(),
@@ -187,8 +225,8 @@ public class ArticleControllerTest {
         );
     }
 
-    private UserAccountDtoV1 createUserAccountDtoV1() {
-        return new UserAccountDtoV1(
+    private UserAccountDto createUserAccountDtoV1() {
+        return new UserAccountDto(
                 "user1",
                 "pw",
                 "user1@mail.com",
