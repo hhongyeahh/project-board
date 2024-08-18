@@ -12,6 +12,9 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+import java.util.List;
+import java.util.Optional;
 //@Repository 스테레오타입 애노테이션 안 붙여도 동작함 -> JPARepository의 구현체인 SimpleRepository에 붙어있음
 //기본적으로 스테레오 애노테이션은 인터페이스가 아닌 구현체에 붙임
 
@@ -42,5 +45,4 @@ public interface ArticleRepository extends
     Page<Article> findByUserAccount_NicknameContaining(String nickname, Pageable pageable);
     Page<Article> findByHashtag(String hashtag, Pageable pageable);
 
-    void deleteByIdAndUserAccount_UserId(long articleId, String userId);
 }

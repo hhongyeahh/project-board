@@ -5,7 +5,6 @@ import com.project.projectboard.domain.UserAccount;
 import com.project.projectboard.dto.ArticleDto;
 import com.project.projectboard.domain.constant.SearchType;
 import com.project.projectboard.dto.ArticleWithCommentsDto;
-import com.project.projectboard.dto.UserAccountDto;
 import com.project.projectboard.repository.ArticleRepository;
 import com.project.projectboard.repository.UserAccountRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -69,25 +68,19 @@ public class ArticleService {
     public void updateArticle(Long articleId, ArticleDto dto) {
         try {
             Article article = articleRepository.getReferenceById(articleId);
-            UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().userId());
-
-            if(article.getUserAccount().equals(userAccount)) {
-                //인증된 사용자와 게시글의 사용자가 동일한지 검사
-                if (dto.title() != null) {
-                    article.setTitle(dto.title());
-                }
-                if (dto.content() != null) {
-                    article.setContent(dto.content());
-                }
-                article.setHashtag(dto.hashtag());
-            }
+            if (dto.title() != null) { article.setTitle(dto.title()); }
+            if (dto.content() != null) { article.setContent(dto.content()); }
+            article.setHashtag(dto.hashtag());
+            //articleRepository.save(article);
+            //save 필요없음 updateArticle 은 클래스 레벨 transactional 로 메소드 단위로 transaction 이 묶어있어서
+            //transaction 이 끝날때, 영속성 컨텍스트는 Article 의 변화를 감지하고 쿼리문을 날림
         } catch (EntityNotFoundException e) {
-            log.warn("게시판 업데이트 실패, 게시글을 수정하는데 필요한 정보를 찾을 수 없습니다. -  {}", e.getLocalizedMessage());
+            log.warn("게시판 업데이트 실패, 게시글을 찾을 수 없습니다. - dto: {}", dto);
         }
     }
 
-    public void deleteArticle(long articleId, String userId) {
-        articleRepository.deleteByIdAndUserAccount_UserId(articleId,userId);
+    public void deleteArticle(long articleId) {
+        articleRepository.deleteById(articleId);
 
     }
 
