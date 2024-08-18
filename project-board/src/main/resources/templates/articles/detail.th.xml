@@ -11,8 +11,8 @@
         <attr sel="#hashtag" th:text="*{hashtag}" />
         <attr sel="#article-content/pre" th:text="*{content}" />
 
-<!--    수정/삭제-->
-    <attr sel="#article-buttons">
+<!--    수정/삭제 사용자와 작성자가 같을 때만 버튼이 나타나도록 처리-->
+    <attr sel="#article-buttons" th:if="${#authorization.expression('isAuthenticated()')} and *{userId} == ${#authentication.name}">>
         <attr sel="#delete-article-form" th:action="'/articles/' + *{id} + '/delete'" th:method="post">
             <attr sel="#update-article" th:href="'/articles/' + *{id} + '/form'" />
         </attr>
@@ -29,6 +29,7 @@
                 <attr sel="div/strong" th:text="${articleComment.nickname}" />
                 <attr sel="div/small/time" th:datetime="${articleComment.createdAt}" th:text="${#temporals.format(articleComment.createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
                 <attr sel="div/p" th:text="${articleComment.content}" />
+                <attr sel="button" th:if="${#authorization.expression('isAuthenticated()')} and ${articleComment.userId} == ${#authentication.name}" />
             </attr>
         </attr>
     </attr>

@@ -11,6 +11,7 @@ import com.project.projectboard.repository.UserAccountRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,6 @@ import java.util.List;
 @Transactional
 @Service
 public class ArticleCommentService {
-
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
     private final UserAccountRepository userAccountRepository;
@@ -51,7 +51,7 @@ public class ArticleCommentService {
             log.warn("댓글 업데이트 실패. 댓글을 찾을 수 없습니다 - dto: {}", dto);
         }
     }
-    public void deleteArticleComment(Long articleCommentId) {
-        articleCommentRepository.deleteById(articleCommentId);
+    public void deleteArticleComment(Long articleCommentId,String userId) {
+        articleCommentRepository.deleteByIdAndUserAccount_UserId(articleCommentId,userId );
     }
 }
