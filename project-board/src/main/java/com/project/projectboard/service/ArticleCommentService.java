@@ -22,8 +22,6 @@ import java.util.List;
 @Transactional
 @Service
 public class ArticleCommentService {
-    private final SimpleJpaRepository simpleJpaRepository;
-
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
     private final UserAccountRepository userAccountRepository;
