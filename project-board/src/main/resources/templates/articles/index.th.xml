@@ -65,8 +65,8 @@
                 </attr>
             </attr>
         </attr>
-
-        <attr sel="#write-article" th:href="@{/articles/form}" />
+<!--인증되었을 때만 버튼이 열리게끔-->
+        <attr sel="#write-article" sec:authorize="isAuthenticated()" th:href="@{/articles/form}" />
 
 <!--        페이지네이션-->
         <attr sel="#pagination">
