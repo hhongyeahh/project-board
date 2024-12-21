@@ -12,8 +12,7 @@
 
 ## 기술 세부 스택
 
-Spring Boot
-
+* Spring Boot
 * Spring Boot Actuator
 * Spring Web
 * Spring Data JPA
